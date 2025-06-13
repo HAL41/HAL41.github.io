@@ -1,20 +1,15 @@
-{% assign current_repo = include.repo %}
-{% capture debug_info %}
-  INCLUDE.repo={{ include.repo }} |
-  REPO_FROM_URL={{ page.url | split: "/" | reject: "" | first }} |
-  DATA.repos={{ site.data.repos | jsonify }}
-{% endcapture %}
+<!-- filepath: /Users/barczit/Documents/Code/Web/HAL41.github.io/_includes/nav.html -->
 <nav>
-  <!-- DEBUG: {{ debug_info }} -->
-  {% if current_repo %}
-    <strong><a href="/{{ current_repo }}/">{{ current_repo }}</a></strong>
+  {% if include.repo %}
+    <strong><a href="/">Home</a></strong>
+    <strong><a href="/{{ include.repo }}/">{{ include.repo }}</a></strong>
     <ul>
-    {% if current_repo == "AI-Insights" %}
+    {% if include.repo == "AI-Insights" and site.ai_insights and site.ai_insights.size > 0 %}
       {% assign posts = site.ai_insights | sort: "month" | sort: "year" | reverse %}
       {% assign languages = posts | map: "lang" | uniq | sort %}
       {% for lang in languages %}
         <li>
-          <a href="/{{ current_repo }}/{{ lang }}/">{{ lang }}</a>
+          <a href="/{{ include.repo }}/{{ lang }}/">{{ lang }}</a>
           <ul>
             {% assign lang_posts = posts | where: "lang", lang %}
             {% for post in lang_posts %}
@@ -25,7 +20,7 @@
           </ul>
         </li>
       {% endfor %}
-    {% elsif current_repo == "TestOtherRepo" %}
+    {% elsif include.repo == "TestOtherRepo" %}
       {% comment %}--- You can add TestOtherRepo logic here ---{% endcomment %}
       <li><a href="/TestOtherRepo/">TestOtherRepo</a></li>
     {% endif %}
@@ -33,10 +28,7 @@
   {% else %}
     <strong>Repositories</strong>
     <ul>
-      {% comment %}
-        Instead of hard-coding, loop your repos.yml keys
-      {% endcomment %}
-      {% for repo_name in site.data.repos | keys | sort %}
+      {% for repo_name in site.data.repos %}
         <li><a href="/{{ repo_name }}/">{{ repo_name }}</a></li>
       {% endfor %}
     </ul>

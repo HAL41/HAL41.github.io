@@ -1,0 +1,13 @@
+# Jekyll build output
+_site/
+
+# Bundler artifacts
+.bundle/
+vendor/bundle/
+
+# Local caches
+.jekyll-cache/
+.sass-cache/
+
+# macOS Finder files
+.DS_Store
