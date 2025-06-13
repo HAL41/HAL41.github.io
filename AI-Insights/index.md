@@ -2,6 +2,6 @@
 layout: default
 ---
 
-{% include render-readme.html path="AI-Insights/README.md" %}
+{% include_relative README.md %}
 
 {% include nav.html repo="AI-Insights" %}
