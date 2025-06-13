@@ -1,8 +1,23 @@
 theme: minima
 markdown: kramdown
-collections: []
+
+# Define the collections
+collections:
+  ai_insights:
+    output: true # This tells Jekyll to generate a page for each document
+    permalink: /AI-Insights/:slug/ # This is the key for URL rewriting
+
+# Defaults for collections
 defaults:
   - scope:
-      path: ""
+      path: "" # Applies to all files
     values:
-      layout: default
+      layout: "default"
+  - scope:
+      path: ""
+      type: "ai_insights" # Defaults specifically for our new collection
+    values:
+      # We will add metadata to the front matter of each file later
+      # But you could set a default layout for all collection items here
+      # layout: "post"
+      repo: "AI-Insights" # Assign a repo name to each item

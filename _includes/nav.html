@@ -1,39 +1,33 @@
-{% assign repo     = include.repo %}
-{% assign segments = page.url | split: "/" | reject: "" %}
-{% assign maybe_lang = segments[1] %}
+{% assign current_repo = page.repo %}
+<nav>
+  <strong><a href="/{{ current_repo }}/">{{ current_repo }}</a></strong>
+  <ul>
+  {% if current_repo == "AI-Insights" %}
+    {% comment %} --- Logic for AI-Insights repo --- {% endcomment %}
+    
+    {% assign posts = site.ai_insights | sort: "month" | sort: "year" | reverse %}
+    {% assign languages = posts | map: "lang" | uniq | sort %}
 
-{% assign repo_pages = site.pages
-                       | where_exp:"p","p.path contains repo"
-                       | where_exp:"p","p.extname == '.md'" %}
+    {% for lang in languages %}
+      <li>
+        <a href="/{{ current_repo }}/{{ lang }}/">{{ lang }}</a>
+        <ul>
+          {% assign lang_posts = posts | where: "lang", lang %}
+          {% for post in lang_posts %}
+            <li>
+              <a href="{{ post.url }}">
+                {{ post.year }}-{{ post.month }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
 
-{% if maybe_lang == nil %}
-  {%- assign languages = repo_pages | map:"basename" | uniq | sort_natural -%}
-  <nav>
-    <ul>
-      <li><a href="/">Home</a></li>
-      {% for lang in languages %}
-        <li><a href="/{{ repo }}/{{ lang }}/">{{ lang }}</a></li>
-      {% endfor %}
-    </ul>
-  </nav>
+  {% elsif current_repo == "TestOtherRepo" %}
+    {% comment %} --- Add logic for TestOtherRepo here later --- {% endcomment %}
+    <li>Other repo nav coming soon...</li>
 
-{% else %}
-  {%- assign lang = maybe_lang -%}
-  {%- assign lang_pages  = repo_pages | where:"basename",lang -%}
-  {%- assign months = "" -%}
-  {%- for p in lang_pages -%}
-      {%- assign month = p.path | split:"/" | slice:1,1 | first -%} {# e.g. "2025-06" #}
-      {%- unless months contains month -%}{% assign months = months | append:month | append:"|" -%}{%- endunless -%}
-  {%- endfor -%}
-  {%- assign months = months | split:"|" | reject:"" | sort_natural | reverse -%}
-
-  <nav>
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/{{ repo }}/">{{ repo }}</a></li>
-      {% for m in months %}
-        <li><a href="/{{ repo }}/{{ lang }}/{{ m }}/">{{ m }}</a></li>
-      {% endfor %}
-    </ul>
-  </nav>
-{% endif %}
+  {% endif %}
+  </ul>
+</nav>

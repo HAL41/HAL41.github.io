@@ -2,12 +2,10 @@
 layout: default
 ---
 
-{% capture readme %}{% include_relative README.md %}{% endcapture %}
-{{ readme | markdownify }}
+# HAL41
+New updated content
 
 ## Repositories
 <ul>
-{% for repo in site.data.repos %}
-  <li><a href="/{{ repo[0] }}/">{{ repo[0] }}</a></li>
-{% endfor %}
+  <li><a href="/AI-Insights/">AI-Insights</a></li>
 </ul>
