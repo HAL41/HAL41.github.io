@@ -7,7 +7,7 @@
 {% if repo == nil %}
   {% include render-readme.html path="README.md" %}
 {% elsif lang == nil %}
-  {% include render-readme.html path=site.data.repos[repo].root_readme %}
+  {{ content }}
 {% elsif year == nil %}
   <h2>{{ lang }}</h2>
   {% comment %} Show 3 newest entries for this lang {% endcomment %}
