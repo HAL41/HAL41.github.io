@@ -1,4 +1,5 @@
-{% assign repo = page.url | split: "/" | reject: "" | first %}
+{% assign repo_from_url = page.url | split: "/" | reject: "" | first %}
+{% assign repo = page.repo | default: repo_from_url %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,11 +13,7 @@
     </aside>
 
     <main class="content">
-      {%- if page.extname == ".html" and page.path ends_with: "README.md" == false -%}
-        {{ content | markdownify }}
-      {%- else -%}
-        {{ content }}
-      {%- endif -%}
+      {{ content }}
     </main>
   </div>
 </body>
