@@ -1,0 +1,22 @@
+{% assign segments = page.url | split: "/" | reject: "" %}
+{% assign repo = segments[0] %}
+{% assign lang = segments[1] %}
+{% assign year = segments[2] %}
+{% assign month = segments[3] %}
+
+{% if repo == nil %}
+  {% include render-readme.html path="README.md" %}
+{% elsif lang == nil %}
+  {% include render-readme.html path=site.data.repos[repo].root_readme %}
+{% elsif year == nil %}
+  <h2>{{ lang }}</h2>
+  {% comment %} Show 3 newest entries for this lang {% endcomment %}
+  {% assign matches = site.static_files | where: "path", repo | where_exp: "f", "f.path contains lang" %}
+  {% assign sorted = matches | sort: "path" | reverse %}
+  {% for f in sorted limit:3 %}
+    {% include_relative {{ f.path }} %}
+  {% endfor %}
+{% else %}
+  {% assign file_path = repo | append: "/" | append: year | append: "/" | append: month | append: "/" | append: lang | append: ".md" %}
+  {% include_relative {{ file_path }} %}
+{% endif %}

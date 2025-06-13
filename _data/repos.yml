@@ -1,0 +1,7 @@
+repos:
+  AI-Insights:
+    structure: language/year/month
+    root_readme: AI-Insights/README.md
+  MyOtherRepo:
+    structure: topic/section
+    root_readme: TestOtherRepo/README.md
