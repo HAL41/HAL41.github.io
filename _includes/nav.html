@@ -1,15 +1,17 @@
 {% assign current_repo = include.repo %}
-
+{% capture debug_info %}
+  INCLUDE.repo={{ include.repo }} |
+  REPO_FROM_URL={{ page.url | split: "/" | reject: "" | first }} |
+  DATA.repos={{ site.data.repos | jsonify }}
+{% endcapture %}
 <nav>
+  <!-- DEBUG: {{ debug_info }} -->
   {% if current_repo %}
     <strong><a href="/{{ current_repo }}/">{{ current_repo }}</a></strong>
     <ul>
     {% if current_repo == "AI-Insights" %}
-      {% comment %} --- Logic for AI-Insights repo --- {% endcomment %}
-      
       {% assign posts = site.ai_insights | sort: "month" | sort: "year" | reverse %}
       {% assign languages = posts | map: "lang" | uniq | sort %}
-
       {% for lang in languages %}
         <li>
           <a href="/{{ current_repo }}/{{ lang }}/">{{ lang }}</a>
@@ -17,24 +19,26 @@
             {% assign lang_posts = posts | where: "lang", lang %}
             {% for post in lang_posts %}
               <li>
-                <a href="{{ post.url | relative_url }}">
-                  {{ post.year }}-{{ post.month }}
-                </a>
+                <a href="{{ post.url | relative_url }}">{{ post.year }}-{{ post.month }}</a>
               </li>
             {% endfor %}
           </ul>
         </li>
       {% endfor %}
-
     {% elsif current_repo == "TestOtherRepo" %}
-      {% comment %} --- Logic for another repo can go here --- {% endcomment %}
+      {% comment %}--- You can add TestOtherRepo logic here ---{% endcomment %}
+      <li><a href="/TestOtherRepo/">TestOtherRepo</a></li>
     {% endif %}
     </ul>
   {% else %}
-    {% comment %} --- Fallback for homepage (no repo context) --- {% endcomment %}
     <strong>Repositories</strong>
     <ul>
-      <li><a href="/AI-Insights/">AI-Insights</a></li>
-      </ul>
+      {% comment %}
+        Instead of hard-coding, loop your repos.yml keys
+      {% endcomment %}
+      {% for repo_name in site.data.repos | keys | sort %}
+        <li><a href="/{{ repo_name }}/">{{ repo_name }}</a></li>
+      {% endfor %}
+    </ul>
   {% endif %}
 </nav>
