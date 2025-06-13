@@ -1,5 +1,4 @@
-{% assign segments = page.url | split: "/" | reject: "" %}
-{% assign repo     = segments[0] %}
+{% assign repo = page.url | split: "/" | reject: "" | first %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,17 +8,7 @@
 <body>
   <div class="layout">
     <aside class="sidebar">
-      {%- if repo == nil or repo == "" -%}
-        <nav>
-          <ul>
-            {%- for r in site.data.repos -%}
-              <li><a href="/{{ r[0] }}/">{{ r[0] }}</a></li>
-            {%- endfor -%}
-          </ul>
-        </nav>
-      {%- else -%}
         {% include nav.html repo=repo %}
-      {%- endif -%}
     </aside>
 
     <main class="content">
