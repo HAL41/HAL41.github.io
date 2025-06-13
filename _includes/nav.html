@@ -1,16 +1,39 @@
-{% assign repo = include.repo %}
+{% assign repo     = include.repo %}
+{% assign segments = page.url | split: "/" | reject: "" %}
+{% assign maybe_lang = segments[1] %}
 
-{% assign pages = site.pages
-                  | where_exp:"p","p.path contains repo"
-                  | where_exp:"p","p.extname == '.md'"
-                  | reject:"name","README.md"
-                  | reject:"name","index.md" %}
+{% assign repo_pages = site.pages
+                       | where_exp:"p","p.path contains repo"
+                       | where_exp:"p","p.extname == '.md'" %}
 
-<nav>
-  <ul>
-    <li><a href="/{{ repo }}/">{{ repo }}</a></li>
-    {% for p in pages %}
-      <li><a href="{{ p.url | relative_url }}">{{ p.basename }}</a></li>
-    {% endfor %}
-  </ul>
-</nav>
+{% if maybe_lang == nil %}
+  {%- assign languages = repo_pages | map:"basename" | uniq | sort_natural -%}
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      {% for lang in languages %}
+        <li><a href="/{{ repo }}/{{ lang }}/">{{ lang }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+
+{% else %}
+  {%- assign lang = maybe_lang -%}
+  {%- assign lang_pages  = repo_pages | where:"basename",lang -%}
+  {%- assign months = "" -%}
+  {%- for p in lang_pages -%}
+      {%- assign month = p.path | split:"/" | slice:1,1 | first -%} {# e.g. "2025-06" #}
+      {%- unless months contains month -%}{% assign months = months | append:month | append:"|" -%}{%- endunless -%}
+  {%- endfor -%}
+  {%- assign months = months | split:"|" | reject:"" | sort_natural | reverse -%}
+
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/{{ repo }}/">{{ repo }}</a></li>
+      {% for m in months %}
+        <li><a href="/{{ repo }}/{{ lang }}/{{ m }}/">{{ m }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+{% endif %}
