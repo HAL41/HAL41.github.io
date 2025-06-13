@@ -1,16 +1,16 @@
 {% assign repo = include.repo %}
-{% assign structure = site.data.repos[repo].structure | split: "/" %}
+
+{% assign pages = site.pages
+                  | where_exp:"p","p.path contains repo"
+                  | where_exp:"p","p.extname == '.md'"
+                  | reject:"name","README.md"
+                  | reject:"name","index.md" %}
 
 <nav>
-  {% assign files = site.static_files | where_exp: "f", "f.path contains repo" %}
-  {% assign md_files = files | where_exp: "f", "f.extname == '.md'" %}
-
   <ul>
-  {% for file in md_files %}
-    {% assign parts = file.path | split: "/" %}
-    {% assign display = parts | last | replace: ".md", "" %}
-    {% assign url = "/" | append: file.path %}
-    <li><a href="{{ url }}">{{ display }}</a></li>
-  {% endfor %}
+    <li><a href="/{{ repo }}/">Home</a></li>
+    {% for p in pages %}
+      <li><a href="{{ p.url | relative_url }}">{{ p.basename }}</a></li>
+    {% endfor %}
   </ul>
 </nav>
