@@ -8,7 +8,7 @@
 
 <nav>
   <ul>
-    <li><a href="/{{ repo }}/">Home</a></li>
+    <li><a href="/{{ repo }}/">{{ repo }}</a></li>
     {% for p in pages %}
       <li><a href="{{ p.url | relative_url }}">{{ p.basename }}</a></li>
     {% endfor %}
