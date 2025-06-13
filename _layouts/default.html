@@ -1,16 +1,32 @@
 {% assign segments = page.url | split: "/" | reject: "" %}
-{% assign repo = segments[0] %}
+{% assign repo     = segments[0] %}
 
 <!DOCTYPE html>
 <html lang="en">
-<head> … </head>
+<head> … 
+  <link rel="stylesheet" href="{{ "/_assets/main.css" | relative_url }}">
+</head>
 <body>
-  {% if repo %}
-    {% include nav.html repo=repo %}
-  {% endif %}
+  <div class="layout">
+    <aside class="sidebar">
+      {%- if repo -%}
+        {% include nav.html repo=repo %}
+      {%- else -%}
+        <nav>
+          <ul>
+            <li><a href="/AI-Insights/">AI-Insights</a></li>
+          </ul>
+        </nav>
+      {%- endif -%}
+    </aside>
 
-  <main>
-    {{ content }} 
-  </main>
+    <main class="content">
+      {%- if page.extname == ".html" and page.path ends_with: "README.md" == false -%}
+        {{ content | markdownify }}
+      {%- else -%}
+        {{ content }}
+      {%- endif -%}
+    </main>
+  </div>
 </body>
 </html>

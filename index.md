@@ -2,7 +2,8 @@
 layout: default
 ---
 
-{% include render-readme.html path="README.md" %}
+{% capture readme %}{% include_relative README.md %}{% endcapture %}
+{{ readme | markdownify }}
 
 ## Repositories
 <ul>

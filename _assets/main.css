@@ -1,0 +1,4 @@
+.layout  { display:flex; min-height:100vh; }
+.sidebar { width:260px; flex:0 0 260px; padding:1rem; background:#f4f4f4;
+           border-right:1px solid #ddd; overflow-y:auto; }
+.content { flex:1 1 auto; padding:2rem 1.5rem; overflow-y:auto; }

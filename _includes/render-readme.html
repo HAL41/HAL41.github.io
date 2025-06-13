@@ -1,7 +1,0 @@
-{% assign readme = include.path %}
-{% capture file_path %}{{ readme }}{% endcapture %}
-{% if site.static_files | where: "path", "/" | map: "name" | join: "," contains readme %}
-  {% include_relative {{ readme }} %}
-{% else %}
-  _Could not find {{ readme }}_
-{% endif %}
