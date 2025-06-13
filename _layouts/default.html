@@ -9,15 +9,7 @@
 <body>
   <div class="layout">
     <aside class="sidebar">
-      {%- if repo -%}
-        {% include nav.html repo=repo %}
-      {%- else -%}
-        <nav>
-          <ul>
-            <li><a href="/AI-Insights/">AI-Insights</a></li>
-          </ul>
-        </nav>
-      {%- endif -%}
+      {% include nav.html repo="AI-Insights" %}
     </aside>
 
     <main class="content">

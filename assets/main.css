@@ -2,3 +2,7 @@
 .sidebar { width:260px; flex:0 0 260px; padding:1rem; background:#f4f4f4;
            border-right:1px solid #ddd; overflow-y:auto; }
 .content { flex:1 1 auto; padding:2rem 1.5rem; overflow-y:auto; }
+
+/* hide bullets and indentation inside side-bar nav -------------------- */
+.sidebar ul { list-style:none; margin:0; padding:0; }
+.sidebar li { margin:0 0 .25rem 0; }
