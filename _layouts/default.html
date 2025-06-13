@@ -9,7 +9,17 @@
 <body>
   <div class="layout">
     <aside class="sidebar">
-      {% include nav.html repo=repo %}
+      {%- if repo == nil or repo == "" -%}
+        <nav>
+          <ul>
+            {%- for r in site.data.repos -%}
+              <li><a href="/{{ r[0] }}/">{{ r[0] }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- else -%}
+        {% include nav.html repo=repo %}
+      {%- endif -%}
     </aside>
 
     <main class="content">
