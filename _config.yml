@@ -1,7 +1,4 @@
-remote_theme: pages-themes/dinky@v0.2.0
 markdown: kramdown
-plugins:
-- jekyll-remote-theme 
 
 # Define the collections
 collections:
@@ -15,6 +12,7 @@ defaults:
       path: "" # Applies to all files
     values:
       layout: "default"
+      lang: en
   - scope:
       path: ""
       type: "ai_insights" # Defaults specifically for our new collection

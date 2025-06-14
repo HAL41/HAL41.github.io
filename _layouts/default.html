@@ -1,17 +1,25 @@
+---
+# This makes Jekyll ignore the theme’s default.html
+---
 {% assign repo_from_url = page.url | split: "/" | reject: "" | first %}
 {% assign repo = page.repo | default: repo_from_url %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ site.lang | default: 'en' }}">
 <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {% seo %}
+
   <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
 </head>
 <body>
   <div class="layout">
     <aside class="sidebar">
-        {% include nav.html repo=repo %}
+      {% include nav.html repo=page.repo %}
     </aside>
-
     <main class="content">
       {{ content }}
     </main>
