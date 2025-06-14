@@ -2,7 +2,7 @@
 <nav>
   {% if include.repo %}
     <strong><a href="/">Home</a></strong>
-    <strong><a href="/{{ include.repo }}/">{{ include.repo }}</a></strong>
+    <strong><a href="/r/{{ include.repo }}/">{{ include.repo }}</a></strong>
     <ul>
     {% if include.repo == "AI-Insights" and site.ai_insights and site.ai_insights.size > 0 %}
       {% assign posts = site.ai_insights | sort: "month" | sort: "year" | reverse %}
@@ -22,7 +22,7 @@
       {% endfor %}
     {% elsif include.repo == "TestOtherRepo" %}
       {% comment %}--- You can add TestOtherRepo logic here ---{% endcomment %}
-      <li><a href="/TestOtherRepo/">TestOtherRepo</a></li>
+      <li><a href="/r/TestOtherRepo/">TestOtherRepo</a></li>
     {% endif %}
     </ul>
   {% else %}

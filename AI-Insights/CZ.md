@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "AI Insights - Czech"
-permalink: /AI-Insights/CZ/
+permalink: /r/AI-Insights/CZ/
 repo: AI-Insights
 ---
 # AI Insights - Český archiv

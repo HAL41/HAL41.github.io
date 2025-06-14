@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "AI Insights - English"
-permalink: /AI-Insights/EN/
+permalink: /r/AI-Insights/EN/
 repo: AI-Insights
 ---
 # AI Insights - English Archives
