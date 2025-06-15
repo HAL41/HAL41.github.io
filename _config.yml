@@ -2,12 +2,13 @@ remote_theme: pages-themes/dinky@v0.2.0
 markdown: kramdown
 plugins:
 - jekyll-remote-theme 
+- jekyll-feed
 
 # Define the collections
 collections:
   ai_insights:
     output: true # This tells Jekyll to generate a page for each document
-    permalink: /AI-Insights/:slug/ # This is the key for URL rewriting
+    permalink: /r/AI-Insights/:slug/ # This is the key for URL rewriting
 
 # Defaults for collections
 defaults:
