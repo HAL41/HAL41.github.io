@@ -1,20 +1,20 @@
 <!-- filepath: /Users/barczit/Documents/Code/Web/HAL41.github.io/_includes/nav.html -->
 <nav>
   {% if include.repo %}
-    <strong><a href="/">Home</a></strong>
-    <strong><a href="/r/{{ include.repo }}/">{{ include.repo }}</a></strong>
     <ul>
+      <li><strong><a href="/">Home</a></strong></li>
+      <li><strong><a href="/r/{{ include.repo }}/">{{ include.repo }}</a></strong></li>
     {% if include.repo == "AI-Insights" and site.ai_insights and site.ai_insights.size > 0 %}
       {% assign posts = site.ai_insights | sort: "month" | sort: "year" | reverse %}
-      {% assign languages = posts | map: "lang" | uniq | sort %}
+      {% assign languages = posts | map: "slug" | uniq | sort %}
       {% for lang in languages %}
         <li>
-          <a href="/{{ include.repo }}/{{ lang }}/">{{ lang }}</a>
+          <a href="/r/{{ include.repo }}/{{ lang }}/">{{ lang }}</a>
           <ul>
-            {% assign lang_posts = posts | where: "lang", lang %}
+            {% assign lang_posts = posts | where: "slug", lang %}
             {% for post in lang_posts %}
               <li>
-                <a href="{{ post.url | relative_url }}">{{ post.year }}-{{ post.month }}</a>
+                <a href="{{ post.url | relative_url }}">{{ post.slug }}-{{ post.year }}-{{ post.month }}</a>
               </li>
             {% endfor %}
           </ul>
@@ -29,7 +29,7 @@
     <strong>Repositories</strong>
     <ul>
       {% for repo_name in site.data.repos %}
-        <li><a href="/{{ repo_name }}/">{{ repo_name }}</a></li>
+        <li><a href="/r/{{ repo_name }}/">{{ repo_name }}</a></li>
       {% endfor %}
     </ul>
   {% endif %}
