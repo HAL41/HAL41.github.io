@@ -4,26 +4,40 @@
     <ul>
       <li><strong><a href="/">Home</a></strong></li>
       <li><strong><a href="/r/{{ include.repo }}/">{{ include.repo }}</a></strong></li>
-    {% if include.repo == "AI-Insights" and site.ai_insights and site.ai_insights.size > 0 %}
-      {% assign posts = site.ai_insights | sort: "month" | sort: "year" | reverse %}
-      {% assign languages = posts | map: "slug" | uniq | sort %}
-      {% for lang in languages %}
-        <li>
-          <a href="/r/{{ include.repo }}/{{ lang }}/">{{ lang }}</a>
-          <ul>
-            {% assign lang_posts = posts | where: "slug", lang %}
-            {% for post in lang_posts %}
-              <li>
-                <a href="{{ post.url | relative_url }}">{{ post.slug }}-{{ post.year }}-{{ post.month }}</a>
-              </li>
-            {% endfor %}
-          </ul>
-        </li>
-      {% endfor %}
-    {% elsif include.repo == "TestOtherRepo" %}
-      {% comment %}--- You can add TestOtherRepo logic here ---{% endcomment %}
-      <li><a href="/r/TestOtherRepo/">TestOtherRepo</a></li>
-    {% endif %}
+      {% if include.repo == "AI-Insights" and site.ai_insights and site.ai_insights.size > 0 %}
+        {% assign posts = site.ai_insights | sort: "month" | sort: "year" | reverse %}
+        {% assign languages = posts | map: "lang" | uniq | sort %}
+        <ul>
+          {% for lang in languages %}
+            <li><a href="/r/{{ include.repo }}/{{ lang }}/">{{ lang }}</a></li>
+          {% endfor %}
+        </ul>
+        <ul>
+          {% assign years = posts | map: "year" | uniq | sort %}
+          {% for year in years %}
+            {% assign year_posts = posts | where: "year", year %}
+            <li><strong>{{ year }}</strong></li>
+            <ul>
+              {% assign months = year_posts | map: "month" | uniq | sort %}
+              {% for month in months %}
+                {% assign month_posts = year_posts | where: "month", month %}
+                <li>
+                  <strong>{{ month }}:</strong>
+                  {% for lang in languages %}
+                    {% assign lang_posts = month_posts | where: "lang", lang %}
+                    {% for post in lang_posts %}
+                      <a href="{{ post.url | relative_url }}">{{ post.lang }}</a>
+                    {% endfor %}
+                  {% endfor %}
+                </li>
+              {% endfor %} 
+            </ul>
+          {% endfor %}
+        </ul>
+      {% elsif include.repo == "TestOtherRepo" %}
+        {% comment %}--- You can add TestOtherRepo logic here ---{% endcomment %}
+        <li><a href="/r/TestOtherRepo/">TestOtherRepo</a></li>
+      {% endif %}
     </ul>
   {% else %}
     <strong>Repositories</strong>
