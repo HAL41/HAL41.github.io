@@ -1,44 +1,44 @@
-<!-- filepath: /Users/barczit/Documents/Code/Web/HAL41.github.io/_includes/nav.html -->
 <nav>
   {% if include.repo %}
-    <ul>
-      <li><strong><a href="/">Home</a></strong></li>
-      <li><strong><a href="/r/{{ include.repo }}/">{{ include.repo }}</a></strong></li>
-      {% if include.repo == "AI-Insights" and site.ai_insights and site.ai_insights.size > 0 %}
-        {% assign posts = site.ai_insights | sort: "month" | sort: "year" | reverse %}
-        {% assign languages = posts | map: "lang" | uniq | sort %}
-        <ul>
-          {% for lang in languages %}
-            <li><a href="/r/{{ include.repo }}/{{ lang }}/">{{ lang }}</a></li>
-          {% endfor %}
-        </ul>
-        <ul>
-          {% assign years = posts | map: "year" | uniq | sort | reverse %}
-          {% for year in years %}
-            {% assign year_posts = posts | where: "year", year %}
-            <li><strong>{{ year }}</strong></li>
-            <ul>
-              {% assign months = year_posts | map: "month" | uniq | sort | reverse %}
-              {% for month in months %}
-                {% assign month_posts = year_posts | where: "month", month %}
-                <li>
-                  <strong>{{ month }}:</strong>
-                  {% for lang in languages %}
-                    {% assign lang_posts = month_posts | where: "lang", lang %}
-                    {% for post in lang_posts %}
-                      <a href="{{ post.url | relative_url }}">{{ post.lang }}</a>
-                    {% endfor %}
-                  {% endfor %}
-                </li>
-              {% endfor %} 
-            </ul>
-          {% endfor %}
-        </ul>
-      {% elsif include.repo == "TestOtherRepo" %}
-        {% comment %}--- You can add TestOtherRepo logic here ---{% endcomment %}
-        <li><a href="/r/TestOtherRepo/">TestOtherRepo</a></li>
+    {% assign posts = site.ai_insights | sort: "month" | sort: "year" | reverse %}
+    {% assign languages = posts | map: "lang" | uniq | sort %}
+    {% assign years = posts | map: "year" | uniq | sort | reverse %}
+    <!-- Home link line -->
+    <p class="nav-line nav-top">
+      <strong><a href="/">Home</a></strong>
+    </p>
+    <!-- Repo link line -->
+    <p class="nav-line nav-top">
+      <strong><a href="/r/{{ include.repo }}/">{{ include.repo }}</a></strong>
+    </p>
+    <!-- Language selector line -->
+    <p class="nav-line nav-top">
+      {% if include.repo == "AI-Insights" and posts.size > 0 %}
+        {% for lang in languages %}
+          <a href="/r/{{ include.repo }}/{{ lang }}/">{{ lang }}</a>{% unless forloop.last %} | {% endunless %}
+        {% endfor %}
       {% endif %}
-    </ul>
+    </p>
+    {% if include.repo == "AI-Insights" and posts.size > 0 %}
+      {% for year in years %}
+        <!-- Year line -->
+        <p class="nav-line nav-year"><strong>{{ year }}</strong></p>
+        {% assign year_posts = posts | where: "year", year %}
+        {% assign months = year_posts | map: "month" | uniq | sort | reverse %}
+        {% for month in months %}
+          <!-- Month line -->
+          <p class="nav-line nav-month">
+            <strong>{{ month }}:</strong>
+            {% for lang in languages %}
+              {% assign lang_posts = year_posts | where: "month", month | where: "lang", lang %}
+              {% if lang_posts.size > 0 %}
+                <a href="{{ lang_posts.first.url | relative_url }}">{{ lang }}</a>{% unless forloop.last %} | {% endunless %}
+              {% endif %}
+            {% endfor %}
+          </p>
+        {% endfor %}
+      {% endfor %}
+    {% endif %}
   {% else %}
     <strong>Repositories</strong>
     <ul>
