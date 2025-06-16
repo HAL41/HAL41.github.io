@@ -16,7 +16,6 @@
     --heading-color: #ccc;
     --sidebar-bg: #2a2a2a;
     --content-bg: transparent;
-    --accent-color: #bfa55b;
     --sidebar-shadow: rgba(0,0,0,0.5);
     --sidebar-hover-bg: #333;
   }
@@ -48,6 +47,7 @@ h1, h2, h3, h4, h5 {
   height: 100vh;
   overflow-y: auto;
   display: flex;
+  align-items: flex-start;
   justify-content: center;
 }
 
@@ -63,6 +63,9 @@ h1, h2, h3, h4, h5 {
   border-right: none;
   overflow-y: auto;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) var(--bg-color);
 }
 
 .sidebar ul {
@@ -74,7 +77,7 @@ h1, h2, h3, h4, h5 {
 .sidebar a {
   display: block;
   padding: 0.5rem 1rem;
-  color: #333;
+  color: var(--text-color);
   text-decoration: none;
   border-left: 3px solid transparent;
   transition: background 0.2s, border-color 0.2s;
@@ -223,6 +226,93 @@ table th {
     background-color: var(--accent-color);
     color: #000;
     border: 1px solid var(--accent-color);
+  }
+}
+
+/* Custom scrollbar styling */
+/* WebKit */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color);
+  border-radius: 6px;
+  border: 3px solid var(--bg-color);
+}
+@media (prefers-color-scheme: dark) {
+  body {
+    scrollbar-color: var(--accent-color) var(--bg-color);
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-color);
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border: 3px solid var(--bg-color);
+  }
+  ::-webkit-scrollbar-corner {
+    background: var(--bg-color) !important;
+  }
+  /* Global WebKit scrollbar overrides */
+  ::-webkit-scrollbar-track {
+    background: var(--bg-color) !important;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color) !important;
+    border: 3px solid var(--bg-color) !important;
+  }
+  /* Container scrollbar overrides */
+  .main::-webkit-scrollbar-track,
+  .sidebar::-webkit-scrollbar-track {
+    background: var(--bg-color) !important;
+  }
+  .main::-webkit-scrollbar-thumb,
+  .sidebar::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color) !important;
+    border: 3px solid var(--bg-color) !important;
+  }
+}
+
+/* Scrollbar styling for scrollable containers */
+.main,
+.sidebar {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) var(--bg-color);
+}
+/* WebKit */
+.main::-webkit-scrollbar,
+.sidebar::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+.main::-webkit-scrollbar-track,
+.sidebar::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+.main::-webkit-scrollbar-thumb,
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color);
+  border-radius: 6px;
+  border: 3px solid var(--bg-color);
+}
+@media (prefers-color-scheme: dark) {
+  .main,
+  .sidebar {
+    scrollbar-color: var(--accent-color) var(--bg-color);
+  }
+  .main::-webkit-scrollbar-track,
+  .sidebar::-webkit-scrollbar-track {
+    background: var(--bg-color);
+  }
+  .main::-webkit-scrollbar-thumb,
+  .sidebar::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border: 3px solid var(--bg-color);
   }
 }
 

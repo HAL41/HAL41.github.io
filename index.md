@@ -1,11 +1,13 @@
 ---
 layout: default
 ---
-
-# HAL41
-New updated content
+{% capture readme_content %}{% include_relative README.md %}{% endcapture %}
+{{ readme_content | markdownify }}
 
 ## Repositories
-<ul>
-  <li><a href="/r/AI-Insights/">AI-Insights</a></li>
-</ul>
+<!-- Repositories list -->
+{% for repo_name in site.data.repos %}
+  <ul>
+    <li><strong><a href="/r/{{ repo_name }}/">{{ repo_name }}</a></strong></li>
+  </ul>
+{% endfor %}
