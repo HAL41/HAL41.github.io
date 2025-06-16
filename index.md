@@ -7,5 +7,5 @@ New updated content
 
 ## Repositories
 <ul>
-  <li><a href="/AI-Insights/">AI-Insights</a></li>
+  <li><a href="/r/AI-Insights/">AI-Insights</a></li>
 </ul>

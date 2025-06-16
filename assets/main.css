@@ -57,7 +57,7 @@ h1, h2, h3, h4, h5 {
   top: 0;
   bottom: 0;
   width: 200px;
-  padding: 2rem 0;
+  padding: 2rem 0 0 1rem;
   background-color: var(--sidebar-bg);
   box-shadow: 2px 0 5px var(--sidebar-shadow);
   border-right: none;
@@ -135,9 +135,6 @@ a:hover {
 .nav-line {
   display: flex;
   flex-wrap: nowrap;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
   overflow-x: auto;
 }
 
@@ -147,7 +144,7 @@ a:hover {
 }
 
 .nav-line a {
-  margin: 0 0.5rem;
+  margin: 0;
   color: var(--accent-color);
   text-decoration: none;
   font-weight: 500;
@@ -175,8 +172,7 @@ a:hover {
 .nav-line.nav-top {
   display: flex;
   flex-wrap: nowrap;
-  justify-content: center;
-  gap: 0.5rem;
+  justify-content: flex-start;
   overflow-x: auto;
 }
 
@@ -185,8 +181,18 @@ a:hover {
 .nav-line.nav-month {
   display: block;
   white-space: normal;
-  margin: 0.75rem 0;
-  text-align: center;
+  margin: 0.75rem;
+  text-align: left;
+}
+
+.nav-line.nav-lang {
+    padding-left: 1rem;
+  }
+.nav-line.nav-year {
+  padding-left: 1rem;
+}
+.nav-line.nav-month {
+  padding-left: 2rem;
 }
 
 /* Enhanced table striping */
@@ -221,7 +227,7 @@ table th {
 }
 
 /* Responsive: sidebar on top and main full width */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .sidebar {
     position: relative;
     width: 100%;

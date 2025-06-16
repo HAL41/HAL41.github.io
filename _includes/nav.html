@@ -9,37 +9,9 @@
       <strong><a href="/r/{{ repo_name }}/">{{ repo_name }}</a></strong> 
     </p>
     {% if include.repo == repo_name %}
+      <!-- Custom nav for each repo -->
       {% if include.repo == "AI-Insights" %}
-        {% assign posts = site.ai_insights | sort: "month" | sort: "year" | reverse %}
-        {% if posts.size > 0 %}
-          {% assign languages = posts | map: "lang" | uniq | sort %}
-          <!-- Language selector line -->
-          <p class="nav-line nav-top">
-            {% for lang in languages %}
-              <a href="/r/{{ include.repo }}/{{ lang }}/">{{ lang }}</a>{% unless forloop.last %} | {% endunless %}
-            {% endfor %}
-          </p>
-
-          {% assign years = posts | map: "year" | uniq | sort | reverse %}
-          {% for year in years %}
-            {% assign year_posts = posts | where: "year", year %}
-            <!-- Year line -->
-            <p class="nav-line nav-year"><strong>{{ year }}</strong></p>
-            {% assign months = year_posts | map: "month" | uniq | sort | reverse %}
-            {% for month in months %}
-              <!-- Month line -->
-              <p class="nav-line nav-month">
-                <strong>{{ month }}:</strong>
-                {% for lang in languages %}
-                  {% assign lang_posts = year_posts | where: "month", month | where: "lang", lang %}
-                  {% if lang_posts.size > 0 %}
-                    <a href="{{ lang_posts.first.url | relative_url }}">{{ lang }}</a>{% unless forloop.last %} | {% endunless %}
-                  {% endif %}
-                {% endfor %}
-              </p>
-            {% endfor %}
-          {% endfor %}
-        {% endif %}
+        {% include nav-ai-insights.html repo=include.repo %}
       {% endif %}
     {% endif %}
   {% endfor %}
