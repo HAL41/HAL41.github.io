@@ -24,7 +24,7 @@
 
 /* Global typography and background */
 body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Georgia', serif;
   margin: 0;
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -38,9 +38,17 @@ h1, h2, h3, h4, h5 {
 
 /* Layout improvements */
 .layout {
-  display: flex;
+  position: relative;
   min-height: 100vh;
-  align-items: flex-start;
+}
+
+/* Main scrolling region sits right of fixed sidebar and centers its .content */
+.main {
+  margin-left: 200px;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
 }
 
 /* Sidebar restyling */
@@ -49,11 +57,12 @@ h1, h2, h3, h4, h5 {
   top: 0;
   bottom: 0;
   width: 200px;
-  padding: 1rem 0.5rem;
+  padding: 2rem 0;
   background-color: var(--sidebar-bg);
   box-shadow: 2px 0 5px var(--sidebar-shadow);
   border-right: none;
   overflow-y: auto;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .sidebar ul {
@@ -84,12 +93,9 @@ h1, h2, h3, h4, h5 {
 
 /* Content area with max-width for readability */
 .content {
-  margin-left: 200px;
-  flex: 1 1 auto;
+  margin: 2rem 0;
   max-width: 800px;
-  margin-right: auto;
   padding: 2rem 1.5rem;
-  background-color: var(--content-bg);
 }
 
 /* Utility adjustments */
@@ -181,4 +187,50 @@ a:hover {
   white-space: normal;
   margin: 0.75rem 0;
   text-align: center;
+}
+
+/* Enhanced table striping */
+table tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+table tr:nth-child(odd) {
+  background-color: transparent;
+}
+/* Stronger table header styling */
+table th {
+  background-color: var(--accent-color);
+  color: #fff;
+  border: 1px solid var(--accent-color);
+  text-align: left;
+}
+
+@media (prefers-color-scheme: dark) {
+  /* Dark-mode striping */
+  table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  table tr:nth-child(odd) {
+    background-color: transparent;
+  }
+  /* Dark-mode header styling */
+  table th {
+    background-color: var(--accent-color);
+    color: #000;
+    border: 1px solid var(--accent-color);
+  }
+}
+
+/* Responsive: sidebar on top and main full width */
+@media (max-width: 768px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    box-shadow: none;
+  }
+  .main {
+    margin-left: 0;
+    height: auto;
+    overflow-y: visible;
+  }
 }
