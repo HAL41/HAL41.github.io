@@ -13,12 +13,12 @@
           {% endfor %}
         </ul>
         <ul>
-          {% assign years = posts | map: "year" | uniq | sort %}
+          {% assign years = posts | map: "year" | uniq | sort | reverse %}
           {% for year in years %}
             {% assign year_posts = posts | where: "year", year %}
             <li><strong>{{ year }}</strong></li>
             <ul>
-              {% assign months = year_posts | map: "month" | uniq | sort %}
+              {% assign months = year_posts | map: "month" | uniq | sort | reverse %}
               {% for month in months %}
                 {% assign month_posts = year_posts | where: "month", month %}
                 <li>
