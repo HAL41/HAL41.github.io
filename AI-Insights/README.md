@@ -1,4 +1,4 @@
-# AI Insights #3 - July 2025 // Červenec 2025
+# AI Insights #4 - August 2025 // Srpen 2025
 *Česká verze následuje // Czech version below*
 
 ---
